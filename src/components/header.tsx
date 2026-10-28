@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import Logo from "@/components/logo";
+import ThemeToggle from "@/components/theme-toggle";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, X } from "lucide-react";
@@ -57,16 +58,19 @@ export default function Header() {
           Parlons de votre projet <ArrowUpRight size={17} />
         </Link>
       </nav>
-      <button
-        disabled={!ready}
-        className="menu-toggle"
-        aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-        aria-expanded={open}
-        aria-controls="navigation-principale"
-        onClick={() => setOpen(!open)}
-      >
-        {open ? <X /> : <Menu />}
-      </button>
+      <div className="header-actions">
+        <ThemeToggle />
+        <button
+          disabled={!ready}
+          className="menu-toggle"
+          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-expanded={open}
+          aria-controls="navigation-principale"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X /> : <Menu />}
+        </button>
+      </div>
     </header>
   );
 }

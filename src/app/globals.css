@@ -2420,3 +2420,84 @@ footer {
     background: #fff;
   }
 }
+
+:root {
+  --map-highlight: #175cfa;
+  --map-highlight-text: #fff;
+  --map-land: #e8eef6;
+  --map-label: #586779;
+  --map-route: #175cfa;
+}
+.seg-logo {
+  color: var(--ink);
+}
+.map-drawing svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  flex-shrink: 0;
+  transition:
+    background 0.2s,
+    transform 0.3s var(--ease);
+}
+.theme-toggle:hover {
+  background: #175cfa0a;
+  transform: rotate(-10deg);
+}
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+.site-header > .navigation {
+  margin-left: auto;
+}
+@media (min-width: 801px) and (max-width: 1250px) {
+  .brand-description {
+    display: none;
+  }
+  .site-header {
+    gap: 15px;
+  }
+  .nav-links > a {
+    padding-inline: 10px;
+  }
+  .nav-contact {
+    margin-left: 8px;
+    padding-inline: 15px;
+  }
+}
+@media (max-width: 480px) {
+  .site-header {
+    gap: 10px;
+  }
+  .brand {
+    gap: 11px;
+  }
+  .brand-description {
+    font-size: 8px;
+    padding-left: 11px;
+  }
+  .header-actions {
+    gap: 7px;
+  }
+}
+@media (max-width: 360px) {
+  .brand-description {
+    display: none;
+  }
+}

@@ -46,7 +46,7 @@ test("all pages have distinct titles, one heading and valid local links", async 
 test("desktop images load and layout fits viewport", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
-  await expect(page.locator(".territory-map img")).toBeVisible();
+  await expect(page.locator(".territory-map svg")).toBeVisible();
   for (const img of await page.locator("img").all()) {
     await img.scrollIntoViewIfNeeded();
     await expect
@@ -302,5 +302,95 @@ test("all pages fit narrow screens after fonts load", async ({ page }) => {
         `${route} at ${width}px`,
       ).toBe(true);
     }
+  }
+});
+
+test("theme toggle persists through navigation and reload", async ({
+  page,
+}) => {
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await page.getByRole("button", { name: "Activer le thème sombre" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.locator("body")).toHaveCSS(
+    "background-color",
+    "rgb(2, 6, 23)",
+  );
+  await expect(page.locator(".hero-actions .button")).toHaveCSS(
+    "background-color",
+    "rgb(251, 191, 36)",
+  );
+  await expect(page.locator(".hero-actions .button")).toHaveCSS(
+    "color",
+    "rgb(15, 23, 42)",
+  );
+  await expect(page.locator(".brand .seg-logo")).toHaveCSS(
+    "color",
+    "rgb(248, 250, 252)",
+  );
+  await page
+    .getByRole("navigation")
+    .getByRole("link", { name: "Expertises", exact: true })
+    .click();
+  await expect(page).toHaveURL(/expertises/);
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.reload();
+  await expect(
+    page.getByRole("button", { name: "Activer le thème clair" }),
+  ).toBeEnabled();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.getByRole("button", { name: "Activer le thème clair" }).click();
+  await expect(page.locator("body")).toHaveCSS(
+    "background-color",
+    "rgb(245, 245, 242)",
+  );
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+});
+test("system theme applies initially and explicit choice wins", async ({
+  page,
+}) => {
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(
+    page.getByRole("button", { name: "Activer le thème clair" }),
+  ).toBeEnabled();
+  await page.emulateMedia({ colorScheme: "light" });
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await page.getByRole("button", { name: "Activer le thème sombre" }).click();
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.emulateMedia({ colorScheme: "light" });
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+});
+test("theme works without browser storage and fits mobile", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Storage.prototype.getItem = () => {
+      throw new Error("Storage unavailable");
+    };
+    Storage.prototype.setItem = () => {
+      throw new Error("Storage unavailable");
+    };
+  });
+  await page.emulateMedia({ colorScheme: "light", reducedMotion: "reduce" });
+  await page.setViewportSize({ width: 320, height: 844 });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Activer le thème sombre" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  for (const route of ["/", "/contact", "/expertises"]) {
+    await page.goto(route);
+    await page.getByRole("button", { name: "Activer le thème sombre" }).click();
+    await page.evaluate(() => document.fonts.ready);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    await page.getByRole("button", { name: "Ouvrir le menu" }).click();
+    await expect(page.getByRole("navigation")).toBeVisible();
+    await page.keyboard.press("Escape");
   }
 });

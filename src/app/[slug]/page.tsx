@@ -470,6 +470,13 @@ export default async function Page({
               d’audience. Aucun cookie non essentiel n’est nécessaire à son
               utilisation.
             </p>
+            <p>
+              Si vous choisissez un thème clair ou sombre, cette préférence est
+              enregistrée localement dans votre navigateur sous la clé «
+              seg-theme ». Elle sert uniquement à retrouver votre choix lors de
+              vos prochaines visites ; elle n’est pas transmise au serveur et
+              n’est pas utilisée pour vous suivre.
+            </p>
             <h2>Documents</h2>
             <p>
               Un document PDF ou une image de 5 Mo maximum peut accompagner la

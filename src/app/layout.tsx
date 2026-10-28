@@ -3,8 +3,10 @@ import Link from "next/link";
 import Header from "@/components/header";
 import Logo from "@/components/logo";
 import SiteMotion from "@/components/site-motion";
+import { themeInitScript } from "@/lib/theme";
 import "@fontsource/ibm-plex-mono/latin-400.css";
 import "./globals.css";
+import "./dark-theme.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://s-e-g.fr"),
   alternates: { canonical: "/" },
@@ -21,7 +23,10 @@ export const metadata: Metadata = {
 };
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" data-scroll-behavior="smooth">
+    <html lang="fr" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body>
         <a className="skip-link" href="#contenu">
           Aller au contenu

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import MapDrawing from "@/components/map-drawing";
 
 export default function TerritoryMap() {
   return (
@@ -14,14 +14,7 @@ export default function TerritoryMap() {
         </span>
       </div>
       <div className="map-drawing">
-        <Image
-          src="/images/intervention-map.svg"
-          width={480}
-          height={300}
-          alt="Carte de l’Île-de-France, avec le Val-d’Oise mis en évidence et le siège de SEG à Ennery"
-          unoptimized
-          priority
-        />
+        <MapDrawing />
         <span className="map-pin">Siège · Ennery</span>
         <span className="map-outside">Au-delà, selon projet</span>
       </div>
