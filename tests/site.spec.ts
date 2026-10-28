@@ -46,12 +46,20 @@ test("all pages have distinct titles, one heading and valid local links", async 
 test("desktop images load and layout fits viewport", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
-  await expect(page.locator(".hero-visual img")).toBeVisible();
+  await expect(page.locator(".territory-map img")).toBeVisible();
   for (const img of await page.locator("img").all()) {
     await img.scrollIntoViewIfNeeded();
-    await expect.poll(() => img.evaluate(el => (el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth > 0)).toBe(true);
+    await expect
+      .poll(() =>
+        img.evaluate(
+          (el) =>
+            (el as HTMLImageElement).complete &&
+            (el as HTMLImageElement).naturalWidth > 0,
+        ),
+      )
+      .toBe(true);
   }
-  await page.evaluate(() => window.scrollTo({top:0,behavior:"instant"}));
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
   await page.waitForFunction(() =>
     Array.from(document.images).every((i) => i.complete && i.naturalWidth > 0),
   );
@@ -60,6 +68,16 @@ test("desktop images load and layout fits viewport", async ({ page }) => {
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  for (const el of await page.locator("[data-reveal]").all()) {
+    await el.scrollIntoViewIfNeeded();
+    await expect(el).toHaveAttribute("data-reveal", "visible");
+  }
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await page.waitForFunction(() =>
+    Array.from(document.querySelectorAll("[data-reveal=visible]")).every(
+      (el) => getComputedStyle(el).opacity === "1",
+    ),
+  );
   await page.screenshot({ path: "test-results/desktop.png", fullPage: true });
 });
 test("mobile navigation, contact paths and overflow", async ({ page }) => {
@@ -90,10 +108,30 @@ test("mobile navigation, contact paths and overflow", async ({ page }) => {
   await page.goto("/");
   for (const img of await page.locator("img").all()) {
     await img.scrollIntoViewIfNeeded();
-    await expect.poll(() => img.evaluate(el => (el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth > 0)).toBe(true);
+    await expect
+      .poll(() =>
+        img.evaluate(
+          (el) =>
+            (el as HTMLImageElement).complete &&
+            (el as HTMLImageElement).naturalWidth > 0,
+        ),
+      )
+      .toBe(true);
   }
-  await page.evaluate(() => window.scrollTo({top:0,behavior:"instant"}));
-  await page.waitForFunction(() => Array.from(document.images).every(i => i.complete && i.naturalWidth > 0));
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await page.waitForFunction(() =>
+    Array.from(document.images).every((i) => i.complete && i.naturalWidth > 0),
+  );
+  for (const el of await page.locator("[data-reveal]").all()) {
+    await el.scrollIntoViewIfNeeded();
+    await expect(el).toHaveAttribute("data-reveal", "visible");
+  }
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await page.waitForFunction(() =>
+    Array.from(document.querySelectorAll("[data-reveal=visible]")).every(
+      (el) => getComputedStyle(el).opacity === "1",
+    ),
+  );
   await page.screenshot({ path: "test-results/mobile.png", fullPage: true });
 });
 test("contact validates and never reports a fictitious delivery", async ({
@@ -154,4 +192,115 @@ test("contact handles an accepted delivery", async ({ page }) => {
     "transmise au service de réception",
   );
 });
-test('API rejects invalid attachments before delivery',async({request})=>{const data={profile:'particulier',name:'Personne Test',email:'test@example.com',location:'Ennery',project:'autre',building:'Maison',description:'Un projet résidentiel à étudier avec SEG.',consent:'yes'};const invalid=await request.post('/api/contact',{multipart:{...data,document:{name:'script.html',mimeType:'text/html',buffer:Buffer.from('<script>test</script>')}}});expect(invalid.status()).toBe(400);expect((await invalid.json()).error).toContain('Document non accepté');const valid=await request.post('/api/contact',{multipart:data});expect(valid.status()).toBe(503);expect((await valid.json()).error).toContain('n’a pas été transmise')});
+test("API rejects invalid attachments before delivery", async ({ request }) => {
+  const data = {
+    profile: "particulier",
+    name: "Personne Test",
+    email: "test@example.com",
+    location: "Ennery",
+    project: "autre",
+    building: "Maison",
+    description: "Un projet résidentiel à étudier avec SEG.",
+    consent: "yes",
+  };
+  const invalid = await request.post("/api/contact", {
+    multipart: {
+      ...data,
+      document: {
+        name: "script.html",
+        mimeType: "text/html",
+        buffer: Buffer.from("<script>test</script>"),
+      },
+    },
+  });
+  expect(invalid.status()).toBe(400);
+  expect((await invalid.json()).error).toContain("Document non accepté");
+  const valid = await request.post("/api/contact", { multipart: data });
+  expect(valid.status()).toBe(503);
+  expect((await valid.json()).error).toContain("n’a pas été transmise");
+});
+
+test("reference motion reveals content and ticker can be paused", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page
+    .getByRole("button", {
+      name: "Mettre en pause le défilement des expertises",
+    })
+    .click();
+  await expect(page.locator(".expertise-ticker")).toHaveAttribute(
+    "data-paused",
+    "true",
+  );
+  await page
+    .getByRole("button", { name: "Reprendre le défilement des expertises" })
+    .click();
+  await expect(page.locator(".expertise-ticker")).toHaveAttribute(
+    "data-paused",
+    "false",
+  );
+  const card = page.locator(".service-row").first();
+  await card.scrollIntoViewIfNeeded();
+  await expect(card).toHaveAttribute("data-reveal", "visible");
+  await expect(card).toHaveCSS("opacity", "1");
+  await card.click();
+  await expect(page).toHaveURL(/renovation-electrique-tertiaire/);
+  await expect(page.locator("h1")).toContainText(
+    "Rénovation électrique tertiaire",
+  );
+});
+test("reduced motion leaves content visible and stops animation", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator(".hero-word").first()).toHaveCSS(
+    "animation-name",
+    "none",
+  );
+  await expect(page.locator(".ticker-track")).toHaveCSS(
+    "animation-name",
+    "none",
+  );
+  await expect(page.locator(".service-row").first()).toHaveCSS("opacity", "1");
+  await expect(page.locator("[data-reveal=pending]")).toHaveCount(0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole("button", { name: "Ouvrir le menu" }).click();
+  await expect(page.getByRole("navigation")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("navigation")).toBeHidden();
+});
+test("content remains available without JavaScript", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:3000/");
+  await expect(page.locator(".service-row").first()).toHaveCSS("opacity", "1");
+  await expect(page.locator(".service-row")).toHaveCount(4);
+  await expect(page.locator(".territory-map")).toBeVisible();
+  await context.close();
+});
+
+test("all pages fit narrow screens after fonts load", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  for (const width of [320, 390, 768]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const route of [
+      "/",
+      "/expertises",
+      "/contact",
+      "/realisations",
+      "/renovation-electrique-tertiaire",
+      "/mentions-legales",
+    ]) {
+      await page.goto(route);
+      await page.evaluate(() => document.fonts.ready);
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+        `${route} at ${width}px`,
+      ).toBe(true);
+    }
+  }
+});

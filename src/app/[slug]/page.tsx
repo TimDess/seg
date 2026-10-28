@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { services, pages, steps } from "@/lib/content";
 import { Button, ContactBand, SectionLabel, TextLink } from "@/components/ui";
@@ -111,7 +112,9 @@ export default async function Page({
                 <span className="mono">{s.number}</span>
                 <h3>{s.title}</h3>
                 <p>{s.description}</p>
-                <span className="round-arrow">↗</span>
+                <span className="round-arrow">
+                  <ArrowUpRight size={20} />
+                </span>
               </Link>
             ))}
           </div>

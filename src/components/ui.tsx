@@ -43,7 +43,7 @@ export function ContactBand() {
         Présenter mon projet
       </Button>
       <span className="band-number" aria-hidden="true">
-        ↗
+        <ArrowUpRight />
       </span>
     </section>
   );

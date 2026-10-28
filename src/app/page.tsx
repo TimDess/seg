@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import TerritoryMap from "@/components/territory-map";
+import ExpertiseMarquee from "@/components/expertise-marquee";
 import { ArrowUpRight, ArrowDown, Plus } from "lucide-react";
 import { Button, SectionLabel, TextLink, ContactBand } from "@/components/ui";
 import { services, steps } from "@/lib/content";
@@ -10,11 +12,36 @@ export default function Home() {
         <div className="hero-copy">
           <SectionLabel>ÉLECTRICITÉ GÉNÉRALE — ÎLE-DE-FRANCE</SectionLabel>
           <h1>
-            L’exigence,
-            <br />
-            jusque dans
-            <br />
-            les <span>détails.</span>
+            <span
+              className="hero-word"
+              style={{ "--word-index": 0 } as React.CSSProperties}
+            >
+              L’exigence,
+            </span>{" "}
+            <span
+              className="hero-word"
+              style={{ "--word-index": 1 } as React.CSSProperties}
+            >
+              jusque
+            </span>{" "}
+            <span
+              className="hero-word"
+              style={{ "--word-index": 2 } as React.CSSProperties}
+            >
+              dans
+            </span>{" "}
+            <span
+              className="hero-word"
+              style={{ "--word-index": 3 } as React.CSSProperties}
+            >
+              les
+            </span>{" "}
+            <span
+              className="hero-word hero-accent"
+              style={{ "--word-index": 4 } as React.CSSProperties}
+            >
+              détails.
+            </span>
           </h1>
           <p>
             Rénovation et installation électrique
@@ -34,21 +61,8 @@ export default function Home() {
           </div>
         </div>
         <div className="hero-visual">
-          <Image
-            src="/images/architecture.webp"
-            alt="Perspective architecturale d’un immeuble contemporain — visuel d’illustration"
-            fill
-            priority
-            sizes="(max-width: 800px) 100vw, 55vw"
-          />
-          <div className="image-cross top">+</div>
-          <div className="image-caption">
-            <span>STRUCTURES. RÉSEAUX. PRÉCISION.</span>
-            <span>01 / SEG</span>
-          </div>
-          <span className="image-note">VISUEL D’ILLUSTRATION</span>
+          <TerritoryMap />
         </div>
-        <div className="hero-blue" aria-hidden="true" />
       </section>
       <section className="proof-strip">
         <div>
@@ -70,6 +84,7 @@ export default function Home() {
           <Plus size={22} />
         </div>
       </section>
+      <ExpertiseMarquee />
       <section className="section expertise-section" id="expertises">
         <div className="section-intro">
           <SectionLabel>01 — NOS EXPERTISES</SectionLabel>

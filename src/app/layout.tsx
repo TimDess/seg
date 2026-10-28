@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/header";
 import Logo from "@/components/logo";
-import "@fontsource/space-grotesk/latin-400.css";
-import "@fontsource/space-grotesk/latin-500.css";
-import "@fontsource/inter/latin-400.css";
-import "@fontsource/inter/latin-500.css";
+import SiteMotion from "@/components/site-motion";
 import "@fontsource/ibm-plex-mono/latin-400.css";
 import "./globals.css";
 export const metadata: Metadata = {
@@ -30,6 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           Aller au contenu
         </a>
         <Header />
+        <SiteMotion />
         <main id="contenu">{children}</main>
         <footer>
           <div className="footer-top">

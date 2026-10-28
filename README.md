@@ -1,6 +1,6 @@
 # SEG — Sadeq Électricité Générale
 
-Site français Next.js App Router, TypeScript et Tailwind CSS. Direction artistique graphite / blanc technique / bleu électrique. Contenus séparés dans `src/lib/content.ts`, composants communs dans `src/components`, médias locaux dans `public/images`.
+Site français Next.js App Router, TypeScript et Tailwind CSS. Direction visuelle inspirée du HTML de référence fourni : bleu nuit, cyan et ambre, cartes arrondies, typographie Geist locale et animations progressives. Contenus séparés dans `src/lib/content.ts`, composants communs dans `src/components`, médias locaux dans `public/images`.
 
 ## Développement
 
@@ -32,7 +32,7 @@ Copier `.env.example` vers `.env.local` et renseigner les paramètres côté ser
 
 ## Avant publication
 
-- Logo : version transparente préparée depuis l’image fournie, intégrée dans `public/images/seg-logo.png`. Le fichier vectoriel original pourra remplacer cet export pour une fidélité et une netteté maximales.
+- Logo : image fournie conservée dans `public/images/seg-logo.png`. La déclinaison claire sur fond sombre reprend les tracés vectoriels du même logo présents dans le HTML de référence (`seg-logo-dark.svg`).
 - Références : aucune référence disponible à ce stade. La page Réalisations affiche un état « en préparation » ; les images de l’accueil restent explicitement illustratives. Ajouter les vrais projets lorsque disponibles.
 - Confirmer le périmètre technique, la méthode, les portraits et les qualifications. Aucun témoignage, certification ou chiffre inventé.
 - Compléter l’identité juridique, coordonnées, hébergeur, responsable de traitement, base légale, conservation et contact RGPD dans les pages légales.
@@ -41,4 +41,14 @@ Copier `.env.example` vers `.env.local` et renseigner les paramètres côté ser
 - Configurer le domaine canonique si différent de `https://s-e-g.fr` (layout, sitemap, robots et métadonnées).
 - Passer `SITE_INDEXABLE=true` uniquement après validation : robots et métadonnées bloquent l’indexation par défaut pour protéger la version provisoire.
 
-Aucun outil publicitaire, analytics ou cookie non essentiel. Les polices sont hébergées localement via Fontsource. Les images sont optimisées par Next.js et restent remplaçables par fichier. Sitemap et données structurées Electrician inclus.
+Aucun outil publicitaire, analytics ou cookie non essentiel. Les polices sont hébergées localement. Les images sont optimisées par Next.js et restent remplaçables par fichier. Sitemap et données structurées Electrician inclus.
+
+## Style et animations de référence
+
+Le HTML fourni le 28 octobre 2026 sert uniquement de référence visuelle. Ses coordonnées, références clients et prestations supplémentaires ne sont pas importées. Les contenus, pages, métadonnées et le service de contact existants restent conservés.
+
+- Geist et la carte SVG sont extraits des ressources incorporées au HTML, puis servis localement ; aucun script distant du document n’est repris.
+- Animations CSS du titre, de la carte et du bandeau d’expertises, avec bouton pause.
+- Révélations au défilement via IntersectionObserver et léger éclairage au survol des cartes sur les appareils avec souris.
+- `prefers-reduced-motion` arrête les animations et garde les contenus visibles ; les contenus restent lisibles sans JavaScript. Les effets de survol ne sont pas nécessaires à la navigation.
+- Les tests couvrent aussi la pause du bandeau, les révélations, la réduction du mouvement et le rendu sans JavaScript.
