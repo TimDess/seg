@@ -37,7 +37,7 @@ export default function Home() {
             projets de rénovation et d’installation électrique depuis 2015.
           </p>
           <div className="hero-actions">
-            <Button href="/contact">Présenter un projet</Button>
+            <Button href="/contact">Demander un devis</Button>
             <Link className="subtle-link" href="/expertises">
               Nos expertises <ArrowUpRight size={17} />
             </Link>

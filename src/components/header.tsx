@@ -55,7 +55,7 @@ export default function Header() {
           href="/contact"
           onClick={() => setOpen(false)}
         >
-          Parlons de votre projet <ArrowUpRight size={17} />
+          Demander un devis <ArrowUpRight size={17} />
         </Link>
       </nav>
       <div className="header-actions">

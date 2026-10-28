@@ -98,9 +98,7 @@ test("mobile navigation, contact paths and overflow", async ({ page }) => {
     .getByRole("link", { name: "Particuliers", exact: true })
     .click();
   await expect(page).toHaveURL(/particuliers/);
-  await page
-    .getByRole("link", { name: "Présenter mon projet résidentiel" })
-    .click();
+  await page.locator('a[href="/contact?profil=particulier"]').click();
   await expect(
     page.getByRole("button", { name: "Particulier", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
@@ -151,7 +149,9 @@ test("contact validates and never reports a fictitious delivery", async ({
     .getByLabel("Votre projet en quelques mots")
     .fill("Une rénovation complète des bureaux à étudier.");
   await page.getByRole("checkbox").check();
-  await page.getByRole("button", { name: "Transmettre ma demande" }).click();
+  await page
+    .getByRole("button", { name: "Envoyer ma demande de devis" })
+    .click();
   await expect(page.locator(".form-message[role=alert]")).toContainText(
     "Votre demande n’a pas été transmise",
   );
@@ -187,7 +187,9 @@ test("contact handles an accepted delivery", async ({ page }) => {
       body: '{"ok":true}',
     }),
   );
-  await page.getByRole("button", { name: "Transmettre ma demande" }).click();
+  await page
+    .getByRole("button", { name: "Envoyer ma demande de devis" })
+    .click();
   await expect(page.getByRole("status")).toContainText(
     "transmise au service de réception",
   );

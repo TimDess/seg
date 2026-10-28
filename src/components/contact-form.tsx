@@ -194,7 +194,7 @@ export default function ContactForm({ configured }: { configured: boolean }) {
       >
         {status === "loading"
           ? "Transmission en cours…"
-          : "Transmettre ma demande"}
+          : "Envoyer ma demande de devis"}
         <ArrowUpRight size={18} />
       </button>
       <p className="form-hint">

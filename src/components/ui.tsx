@@ -40,7 +40,7 @@ export function ContactBand() {
         </p>
       </div>
       <Button href="/contact" light>
-        Présenter mon projet
+        Demander un devis
       </Button>
       <span className="band-number" aria-hidden="true">
         <ArrowUpRight />

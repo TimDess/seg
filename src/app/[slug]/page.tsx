@@ -49,7 +49,7 @@ export default async function Page({
         <p>{data.description}</p>
         {service && (
           <Button href={"/contact?projet=" + service.slug}>
-            Échanger sur votre projet
+            Demander un devis
           </Button>
         )}
       </section>
@@ -208,7 +208,7 @@ export default async function Page({
                   possibles.
                 </p>
                 <Button href="/contact?profil=particulier">
-                  Présenter mon projet résidentiel
+                  Demander un devis
                 </Button>
               </div>
               <ul className="detail-list">

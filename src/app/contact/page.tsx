@@ -4,9 +4,9 @@ import ContactForm from "@/components/contact-form";
 import { SectionLabel } from "@/components/ui";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Présenter votre projet électrique",
+  title: "Demander un devis électrique",
   description:
-    "Professionnels ou particuliers : présentez votre projet de rénovation ou d’installation électrique à SEG, à Ennery en Île-de-France.",
+    "Demandez un devis à SEG pour vos travaux de rénovation ou d’installation électrique en Île-de-France, que vous soyez professionnel ou particulier.",
   alternates: { canonical: "/contact" },
 };
 export default function Contact() {
@@ -20,13 +20,13 @@ export default function Contact() {
         </div>
         <SectionLabel>FAISONS CONNAISSANCE</SectionLabel>
         <h1>
-          Tout commence
+          Demandez votre
           <br />
-          par un échange.
+          devis électrique.
         </h1>
         <p>
-          Présentez-nous votre projet. Son contexte, vos attentes et les détails
-          qui comptent pour vous.
+          Décrivez vos travaux, leur localisation et votre calendrier pour nous
+          permettre d’étudier votre demande de devis.
         </p>
       </section>
       <section className="contact-layout">
