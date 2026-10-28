@@ -56,9 +56,10 @@ export default function ThemeToggle() {
       type="button"
       className="theme-toggle"
       disabled={theme === null}
-      aria-label={label}
+      role="switch"
+      aria-label="Mode nuit"
       title={label}
-      aria-pressed={theme === "dark"}
+      aria-checked={theme === "dark"}
       onClick={() => {
         const next = theme === "dark" ? "light" : "dark";
         explicit.current = true;
@@ -71,11 +72,13 @@ export default function ThemeToggle() {
         }
       }}
     >
-      {theme === "dark" ? (
-        <Sun size={19} aria-hidden="true" />
-      ) : (
-        <Moon size={19} aria-hidden="true" />
-      )}
+      <span className="theme-thumb" aria-hidden="true" />
+      <span className="theme-icon theme-sun" aria-hidden="true">
+        <Sun size={18} />
+      </span>
+      <span className="theme-icon theme-moon" aria-hidden="true">
+        <Moon size={18} />
+      </span>
     </button>
   );
 }

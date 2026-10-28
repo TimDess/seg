@@ -313,7 +313,13 @@ test("theme toggle persists through navigation and reload", async ({
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await page.getByRole("button", { name: "Activer le thème sombre" }).click();
+  await expect(
+    page.getByRole("switch", { name: "Mode nuit" }),
+  ).not.toBeChecked();
+  await expect(page.getByRole("switch", { name: "Mode nuit" })).toBeEnabled();
+  await page.getByRole("switch", { name: "Mode nuit" }).focus();
+  await page.keyboard.press("Space");
+  await expect(page.getByRole("switch", { name: "Mode nuit" })).toBeChecked();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await expect(page.locator("body")).toHaveCSS(
     "background-color",
@@ -338,11 +344,9 @@ test("theme toggle persists through navigation and reload", async ({
   await expect(page).toHaveURL(/expertises/);
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.reload();
-  await expect(
-    page.getByRole("button", { name: "Activer le thème clair" }),
-  ).toBeEnabled();
+  await expect(page.getByRole("switch", { name: "Mode nuit" })).toBeEnabled();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await page.getByRole("button", { name: "Activer le thème clair" }).click();
+  await page.getByRole("switch", { name: "Mode nuit" }).click();
   await expect(page.locator("body")).toHaveCSS(
     "background-color",
     "rgb(245, 245, 242)",
@@ -356,12 +360,10 @@ test("system theme applies initially and explicit choice wins", async ({
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(
-    page.getByRole("button", { name: "Activer le thème clair" }),
-  ).toBeEnabled();
+  await expect(page.getByRole("switch", { name: "Mode nuit" })).toBeEnabled();
   await page.emulateMedia({ colorScheme: "light" });
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await page.getByRole("button", { name: "Activer le thème sombre" }).click();
+  await page.getByRole("switch", { name: "Mode nuit" }).click();
   await page.emulateMedia({ colorScheme: "dark" });
   await page.emulateMedia({ colorScheme: "light" });
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
@@ -380,11 +382,11 @@ test("theme works without browser storage and fits mobile", async ({
   await page.emulateMedia({ colorScheme: "light", reducedMotion: "reduce" });
   await page.setViewportSize({ width: 320, height: 844 });
   await page.goto("/");
-  await page.getByRole("button", { name: "Activer le thème sombre" }).click();
+  await page.getByRole("switch", { name: "Mode nuit" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   for (const route of ["/", "/contact", "/expertises"]) {
     await page.goto(route);
-    await page.getByRole("button", { name: "Activer le thème sombre" }).click();
+    await page.getByRole("switch", { name: "Mode nuit" }).click();
     await page.evaluate(() => document.fonts.ready);
     expect(
       await page.evaluate(

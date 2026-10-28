@@ -2443,25 +2443,76 @@ footer {
   flex-shrink: 0;
 }
 .theme-toggle {
+  position: relative;
   display: grid;
-  place-items: center;
-  width: 44px;
+  grid-template-columns: repeat(2, 36px);
+  gap: 4px;
+  align-items: center;
+  width: 84px;
   height: 44px;
+  padding: 3px;
   border: 1px solid var(--line);
-  border-radius: 50%;
-  background: transparent;
+  border-radius: 99px;
+  background: #e8edf4;
   color: var(--ink);
   flex-shrink: 0;
+  isolation: isolate;
+  cursor: pointer;
   transition:
     background 0.2s,
-    transform 0.3s var(--ease);
+    border-color 0.2s;
 }
 .theme-toggle:hover {
-  background: #175cfa0a;
-  transform: rotate(-10deg);
+  border-color: #175cfa55;
 }
 .theme-toggle:active {
-  transform: scale(0.95);
+  scale: 0.97;
+}
+.theme-thumb {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 2px 7px #182e5020;
+  transform: translateX(0);
+  transition:
+    transform 0.3s var(--ease),
+    background 0.2s;
+  pointer-events: none;
+}
+.theme-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+.theme-sun {
+  color: #fff;
+}
+.theme-moon {
+  color: #586779;
+}
+html[data-theme="dark"] .theme-toggle {
+  background: #151f34;
+  border-color: #ffffff24;
+}
+html[data-theme="dark"] .theme-thumb {
+  transform: translateX(40px);
+  background: #fbbf24;
+  box-shadow: 0 2px 8px #0003;
+}
+html[data-theme="dark"] .theme-sun {
+  color: #a5b3c6;
+}
+html[data-theme="dark"] .theme-moon {
+  color: #0f172a;
 }
 .site-header > .navigation {
   margin-left: auto;
@@ -2499,5 +2550,20 @@ footer {
 @media (max-width: 360px) {
   .brand-description {
     display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .brand-description {
+    display: none;
+  }
+}
+@media (min-width: 801px) and (max-width: 1000px) {
+  .brand .seg-logo {
+    width: 82px;
+  }
+  .nav-links > a {
+    font-size: 12px;
+    padding-inline: 7px;
   }
 }

@@ -63,6 +63,6 @@ La signature « L’exigence, jusque dans les détails. » reste dans le pied de
 
 ## Choix du thème
 
-Un bouton lune / soleil dans l’en-tête permet de basculer entre les versions claire et sombre sur toutes les pages. Sans choix enregistré, le site suit `prefers-color-scheme`, y compris si cette préférence change pendant la visite. Le choix explicite est conservé dans `localStorage` (`seg-theme`) et synchronisé entre onglets. Si le stockage est bloqué, le bouton reste fonctionnel pendant la visite.
+Un interrupteur dans l’en-tête, avec soleil à gauche, lune à droite et curseur coulissant, permet de basculer entre les versions claire et sombre sur toutes les pages. Sans choix enregistré, le site suit `prefers-color-scheme`, y compris si cette préférence change pendant la visite. Le choix explicite est conservé dans `localStorage` (`seg-theme`) et synchronisé entre onglets. Si le stockage est bloqué, le bouton reste fonctionnel pendant la visite.
 
 Le script d’initialisation dans le head applique la préférence avant le premier affichage pour éviter un éclair clair lors d’un chargement en sombre. Sans JavaScript, la version claire reste accessible. Les palettes sont dans `globals.css` et `dark-theme.css` ; les tracés SVG partagés du logo et de la carte utilisent les couleurs du thème.
