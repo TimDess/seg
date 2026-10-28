@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Fragment, type CSSProperties } from "react";
 import Image from "next/image";
 import TerritoryMap from "@/components/territory-map";
 import ExpertiseMarquee from "@/components/expertise-marquee";
@@ -12,40 +13,28 @@ export default function Home() {
         <div className="hero-copy">
           <SectionLabel>ÉLECTRICITÉ GÉNÉRALE — ÎLE-DE-FRANCE</SectionLabel>
           <h1>
-            <span
-              className="hero-word"
-              style={{ "--word-index": 0 } as React.CSSProperties}
-            >
-              L’exigence,
-            </span>{" "}
-            <span
-              className="hero-word"
-              style={{ "--word-index": 1 } as React.CSSProperties}
-            >
-              jusque
-            </span>{" "}
-            <span
-              className="hero-word"
-              style={{ "--word-index": 2 } as React.CSSProperties}
-            >
-              dans
-            </span>{" "}
-            <span
-              className="hero-word"
-              style={{ "--word-index": 3 } as React.CSSProperties}
-            >
-              les
-            </span>{" "}
-            <span
-              className="hero-word hero-accent"
-              style={{ "--word-index": 4 } as React.CSSProperties}
-            >
-              détails.
-            </span>
+            {[
+              "Votre",
+              "entreprise",
+              "d’électricité",
+              "générale",
+              "en",
+              "Île-de-France.",
+            ].map((word, index) => (
+              <Fragment key={word}>
+                <span
+                  className={`hero-word ${index === 5 ? "hero-accent" : ""}`}
+                  style={{ "--word-index": index } as CSSProperties}
+                >
+                  {word}
+                </span>
+                {index < 5 ? " " : null}
+              </Fragment>
+            ))}
           </h1>
           <p>
-            Rénovation et installation électrique
-            <br className="desktop" /> pour vos projets professionnels.
+            SEG accompagne les professionnels et les particuliers dans leurs
+            projets de rénovation et d’installation électrique depuis 2015.
           </p>
           <div className="hero-actions">
             <Button href="/contact">Présenter un projet</Button>
@@ -54,7 +43,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="hero-bottom">
-            <span>LA PRÉCISION D’EXÉCUTION.</span>
+            <span>À VOS CÔTÉS DEPUIS 2015.</span>
             <a href="#expertises" aria-label="Découvrir les expertises">
               <ArrowDown size={20} />
             </a>

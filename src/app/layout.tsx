@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s | SEG",
   },
   description:
-    "SEG, Sadeq Électricité Générale. Rénovation et installation électrique pour vos bâtiments professionnels en Île-de-France. Entreprise basée à Ennery depuis 2015.",
+    "SEG accompagne les professionnels et les particuliers dans leurs projets de rénovation et d’installation électrique depuis 2015. Ennery, Île-de-France.",
   robots:
     process.env.SITE_INDEXABLE === "true"
       ? { index: true, follow: true }

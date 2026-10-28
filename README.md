@@ -1,6 +1,6 @@
 # SEG — Sadeq Électricité Générale
 
-Site français Next.js App Router, TypeScript et Tailwind CSS. Direction visuelle inspirée du HTML de référence fourni : bleu nuit, cyan et ambre, cartes arrondies, typographie Geist locale et animations progressives. Contenus séparés dans `src/lib/content.ts`, composants communs dans `src/components`, médias locaux dans `public/images`.
+Site français Next.js App Router, TypeScript et Tailwind CSS. Direction visuelle claire et accessible : blanc cassé, graphite et bleu SEG, cartes arrondies, typographie Geist locale et animations progressives. Deux sections graphite conservent un contraste ponctuel. Contenus séparés dans `src/lib/content.ts`, composants communs dans `src/components`, médias locaux dans `public/images`.
 
 ## Développement
 
@@ -32,7 +32,7 @@ Copier `.env.example` vers `.env.local` et renseigner les paramètres côté ser
 
 ## Avant publication
 
-- Logo : image fournie conservée dans `public/images/seg-logo.png`. La déclinaison claire sur fond sombre reprend les tracés vectoriels du même logo présents dans le HTML de référence (`seg-logo-dark.svg`).
+- Logo : image fournie conservée dans `public/images/seg-logo.png`. Les déclinaisons vectorielles sur fonds clair (`seg-logo.svg`) et sombre (`seg-logo-dark.svg`) reprennent les mêmes tracés présents dans le HTML de référence.
 - Références : aucune référence disponible à ce stade. La page Réalisations affiche un état « en préparation » ; les images de l’accueil restent explicitement illustratives. Ajouter les vrais projets lorsque disponibles.
 - Confirmer le périmètre technique, la méthode, les portraits et les qualifications. Aucun témoignage, certification ou chiffre inventé.
 - Compléter l’identité juridique, coordonnées, hébergeur, responsable de traitement, base légale, conservation et contact RGPD dans les pages légales.
@@ -52,3 +52,11 @@ Le HTML fourni le 28 octobre 2026 sert uniquement de référence visuelle. Ses c
 - Révélations au défilement via IntersectionObserver et léger éclairage au survol des cartes sur les appareils avec souris.
 - `prefers-reduced-motion` arrête les animations et garde les contenus visibles ; les contenus restent lisibles sans JavaScript. Les effets de survol ne sont pas nécessaires à la navigation.
 - Les tests couvrent aussi la pause du bandeau, les révélations, la réduction du mouvement et le rendu sans JavaScript.
+
+## Accroche validée
+
+Titre d’accueil : « Votre entreprise d’électricité générale en Île-de-France. »
+
+Sous-titre : « SEG accompagne les professionnels et les particuliers dans leurs projets de rénovation et d’installation électrique depuis 2015. »
+
+La signature « L’exigence, jusque dans les détails. » reste dans le pied de page.
