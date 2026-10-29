@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import ProjectGrid from "@/components/project-grid";
 import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { services, pages, steps, illustrativeProjects } from "@/lib/content";
@@ -9,7 +8,7 @@ import { Button, ContactBand, SectionLabel, TextLink } from "@/components/ui";
 export function generateStaticParams() {
   return [
     ...services.map((s) => ({ slug: s.slug })),
-    ...Object.keys(pages).map((slug) => ({ slug })),
+    ...Object.keys(pages).filter((slug) => slug !== "realisations").map((slug) => ({ slug })),
   ];
 }
 export async function generateMetadata({
@@ -120,29 +119,6 @@ export default async function Page({
               </Link>
             ))}
           </div>
-        )}
-        {slug === "realisations" && (
-          <section aria-labelledby="portfolio-title">
-            <div className="section-intro">
-              <SectionLabel>PREMIERS APERÇUS</SectionLabel>
-              <h2 id="portfolio-title">
-                Des contextes variés.
-                <br />
-                La même exigence.
-              </h2>
-              <p>
-                Des bureaux aux grandes salles de sport et de spectacle, explorez les
-                besoins et les contraintes qui accompagnent ces projets.
-              </p>
-            </div>
-            <ProjectGrid descriptions />
-            <div className="notice">
-              Ces fiches utilisent des visuels d’illustration. Elles présentent
-              des contextes d’intervention et ne constituent pas des références
-              de chantiers réalisés par SEG. Les projets documentés seront
-              ajoutés progressivement.
-            </div>
-          </section>
         )}
         {slug === "entreprise" && (
           <>

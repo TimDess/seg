@@ -738,7 +738,7 @@ h3 {
   margin: 22px 10px 0;
   gap: 15px;
 }
-.project-title h3 {
+.project-title :is(h2, h3) {
   font-size: 23px;
 }
 .project-title > span {
@@ -1738,7 +1738,7 @@ footer {
   .project-title {
     margin: 18px 6px 0;
   }
-  .project-title h3 {
+  .project-title :is(h2, h3) {
     font-size: 21px;
   }
   .project-title > span {
