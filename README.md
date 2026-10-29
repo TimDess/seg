@@ -33,7 +33,7 @@ Copier `.env.example` vers `.env.local` et renseigner les paramètres côté ser
 ## Avant publication
 
 - Logo : image fournie conservée dans `public/images/seg-logo.png`. Les déclinaisons vectorielles sur fonds clair (`seg-logo.svg`) et sombre (`seg-logo-dark.svg`) reprennent les mêmes tracés présents dans le HTML de référence.
-- Références : aucune référence disponible à ce stade. La page Réalisations affiche un état « en préparation » ; les images de l’accueil restent explicitement illustratives. Ajouter les vrais projets lorsque disponibles.
+- Références : aucune référence disponible à ce stade. La page Réalisations reprend les deux contextes illustratifs de l’accueil et leurs fiches ; les visuels restent explicitement signalés comme illustrations. Les données sont partagées dans `illustrativeProjects` (`src/lib/content.ts`) et les cartes dans `src/components/project-grid.tsx`. Ajouter les vrais projets lorsque disponibles.
 - Confirmer le périmètre technique, la méthode, les portraits et les qualifications. Aucun témoignage, certification ou chiffre inventé.
 - Compléter l’identité juridique, coordonnées, hébergeur, responsable de traitement, base légale, conservation et contact RGPD dans les pages légales.
 - Valider le service de réception du formulaire.

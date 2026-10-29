@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Fragment, type CSSProperties } from "react";
-import Image from "next/image";
+import ProjectGrid from "@/components/project-grid";
 import TerritoryMap from "@/components/territory-map";
 import ExpertiseMarquee from "@/components/expertise-marquee";
 import { ArrowUpRight, ArrowDown, Plus } from "lucide-react";
@@ -112,50 +112,9 @@ export default function Home() {
             <br />
             Des exigences à partager.
           </h2>
-          <TextLink href="/expertises">Explorer nos expertises</TextLink>
+          <TextLink href="/realisations">Voir les réalisations</TextLink>
         </div>
-        <div className="project-grid">
-          {[
-            {
-              title: "Espaces de travail",
-              tag: "RÉNOVATION · TERTIAIRE",
-              slug: "projet-bureaux",
-              image: "bureaux.webp",
-            },
-            {
-              title: "Locaux professionnels",
-              tag: "INSTALLATION · BÂTIMENT",
-              slug: "projet-locaux-professionnels",
-              image: "espaces.webp",
-            },
-          ].map((p, i) => (
-            <Link
-              href={"/" + p.slug}
-              key={p.slug}
-              className={"project project-" + i}
-            >
-              <div className="project-photo">
-                <Image
-                  src={"/images/" + p.image}
-                  alt={
-                    p.title +
-                    " — photographie illustrative, pas une réalisation SEG"
-                  }
-                  fill
-                  sizes="(max-width: 700px) 100vw, 50vw"
-                />
-                <span className="photo-tag">ILLUSTRATION</span>
-                <span className="project-arrow">
-                  <ArrowUpRight />
-                </span>
-              </div>
-              <div className="project-title">
-                <h3>{p.title}</h3>
-                <span>{p.tag}</span>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <ProjectGrid staggered />
         <p className="editorial-note">
           Visuels d’illustration : des contextes d’intervention, sans référence
           à un chantier SEG.

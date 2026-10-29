@@ -2567,3 +2567,18 @@ html[data-theme="dark"] .theme-moon {
     padding-inline: 7px;
   }
 }
+
+.project-summary {
+  margin: 18px 10px 0;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.project-detail-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 10px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent-secondary);
+}

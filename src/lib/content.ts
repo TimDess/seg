@@ -88,10 +88,10 @@ export const pages: Record<
       "De la rénovation à l’installation neuve, des interventions électriques pensées pour les usages de vos bâtiments professionnels.",
   },
   realisations: {
-    title: "Nos réalisations,\nbientôt en détail.",
+    title: "Réalisations\n& inspirations.",
     eyebrow: "RÉALISATIONS",
     description:
-      "Une sélection de projets documentés est en préparation. Retrouvez prochainement ici les interventions de SEG.",
+      "Bureaux et locaux professionnels : une première exploration des projets électriques, en attendant les références de chantier documentées.",
   },
   entreprise: {
     title: "Une expertise technique.\nUne relation directe.",
@@ -142,3 +142,23 @@ export const pages: Record<
       "Un exemple de contexte de projet à discuter. Cette page ne constitue pas une réalisation de SEG.",
   },
 };
+
+/** Illustrative contexts shared by the homepage and the initial portfolio. */
+export const illustrativeProjects = [
+  {
+    title: "Espaces de travail",
+    tag: "RÉNOVATION · TERTIAIRE",
+    slug: "projet-bureaux",
+    image: "bureaux.webp",
+    description:
+      "Réaménager des bureaux, adapter l’éclairage et accompagner l’évolution des usages électriques.",
+  },
+  {
+    title: "Locaux professionnels",
+    tag: "INSTALLATION · BÂTIMENT",
+    slug: "projet-locaux-professionnels",
+    image: "espaces.webp",
+    description:
+      "Préparer une installation électrique en tenant compte de l’activité et des équipements du bâtiment.",
+  },
+];

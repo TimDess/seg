@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import ProjectGrid from "@/components/project-grid";
 import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { services, pages, steps } from "@/lib/content";
@@ -120,27 +121,27 @@ export default async function Page({
           </div>
         )}
         {slug === "realisations" && (
-          <div className="split-content portfolio-pending">
-            <div>
-              <SectionLabel>LE SOIN DU TRAVAIL RÉALISÉ</SectionLabel>
-              <h2>
-                Chaque chantier
-                <br />a ses détails.
+          <section aria-labelledby="portfolio-title">
+            <div className="section-intro">
+              <SectionLabel>PREMIERS APERÇUS</SectionLabel>
+              <h2 id="portfolio-title">
+                Deux contextes.
+                <br />
+                La même exigence.
               </h2>
-            </div>
-            <div>
               <p>
-                Notre sélection de réalisations est en cours de préparation.
-                Nous partagerons ici des projets documentés, avec leur contexte
-                et les interventions de SEG.
+                Des espaces de travail aux locaux professionnels, explorez les
+                besoins et les contraintes qui accompagnent ces projets.
               </p>
-              <p>
-                En attendant, découvrez nos domaines d’intervention ou
-                présentez-nous votre besoin.
-              </p>
-              <TextLink href="/expertises">Découvrir nos expertises</TextLink>
             </div>
-          </div>
+            <ProjectGrid descriptions />
+            <div className="notice">
+              Ces fiches utilisent des visuels d’illustration. Elles présentent
+              des contextes d’intervention et ne constituent pas des références
+              de chantiers réalisés par SEG. Les projets documentés seront
+              ajoutés progressivement.
+            </div>
+          </section>
         )}
         {slug === "entreprise" && (
           <>
