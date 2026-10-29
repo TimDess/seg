@@ -10,6 +10,8 @@ const routes = [
   "/courants-forts-et-faibles",
   "/mise-en-conformite-electrique",
   "/projet-bureaux",
+  "/projet-accor-arena",
+  "/projet-adidas-arena",
   "/projet-locaux-professionnels",
   "/zones-intervention",
   "/conseils",

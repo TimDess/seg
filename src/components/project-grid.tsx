@@ -6,13 +6,15 @@ import { illustrativeProjects } from "@/lib/content";
 export default function ProjectGrid({
   staggered = false,
   descriptions = false,
+  limit,
 }: {
   staggered?: boolean;
   descriptions?: boolean;
+  limit?: number;
 }) {
   return (
     <div className="project-grid">
-      {illustrativeProjects.map((project, index) => (
+      {illustrativeProjects.slice(0, limit).map((project, index) => (
         <Link
           href={"/" + project.slug}
           key={project.slug}

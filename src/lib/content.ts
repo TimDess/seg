@@ -91,7 +91,7 @@ export const pages: Record<
     title: "Réalisations\n& inspirations.",
     eyebrow: "RÉALISATIONS",
     description:
-      "Bureaux et locaux professionnels : une première exploration des projets électriques, en attendant les références de chantier documentées.",
+      "Bureaux, locaux professionnels et arenas : une première exploration des projets électriques, en attendant les références de chantier documentées.",
   },
   entreprise: {
     title: "Une expertise technique.\nUne relation directe.",
@@ -141,6 +141,16 @@ export const pages: Record<
     description:
       "Un exemple de contexte de projet à discuter. Cette page ne constitue pas une réalisation de SEG.",
   },
+  "projet-accor-arena": {
+    title: "Accor Arena",
+    eyebrow: "PROJET FICTIF — ILLUSTRATION",
+    description: "Une exploration fictive des besoins électriques d’un grand lieu événementiel, inspirée de l’Accor Arena. Aucun chantier ni lien commercial avec SEG n’est revendiqué.",
+  },
+  "projet-adidas-arena": {
+    title: "Adidas Arena",
+    eyebrow: "PROJET FICTIF — ILLUSTRATION",
+    description: "Une exploration fictive de l’éclairage et des équipements d’une arena contemporaine, inspirée de l’Adidas Arena. Aucun chantier ni lien commercial avec SEG n’est revendiqué.",
+  },
 };
 
 /** Illustrative contexts shared by the homepage and the initial portfolio. */
@@ -160,5 +170,21 @@ export const illustrativeProjects = [
     image: "espaces.webp",
     description:
       "Préparer une installation électrique en tenant compte de l’activité et des équipements du bâtiment.",
+  },
+  {
+    title: "Accor Arena",
+    tag: "CONCEPT · ÉVÉNEMENTIEL",
+    slug: "projet-accor-arena",
+    image: "accor-arena.webp",
+    description:
+      "Imaginer l’éclairage des accès et les besoins d’alimentation d’un grand lieu événementiel. Projet fictif, sans lien avec SEG.",
+  },
+  {
+    title: "Adidas Arena",
+    tag: "CONCEPT · SPORT & SPECTACLE",
+    slug: "projet-adidas-arena",
+    image: "adidas-arena.webp",
+    description:
+      "Explorer les ambiances lumineuses et les usages électriques d’une arena contemporaine. Projet fictif, sans lien avec SEG.",
   },
 ];

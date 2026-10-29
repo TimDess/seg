@@ -4,7 +4,7 @@ import Image from "next/image";
 import ProjectGrid from "@/components/project-grid";
 import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
-import { services, pages, steps } from "@/lib/content";
+import { services, pages, steps, illustrativeProjects } from "@/lib/content";
 import { Button, ContactBand, SectionLabel, TextLink } from "@/components/ui";
 export function generateStaticParams() {
   return [
@@ -33,6 +33,7 @@ export default async function Page({
   const { slug } = await params;
   const service = services.find((s) => s.slug === slug);
   const page = pages[slug];
+  const project = illustrativeProjects.find((item) => item.slug === slug);
   if (!service && !page) notFound();
   const data = service || page;
   return (
@@ -125,12 +126,12 @@ export default async function Page({
             <div className="section-intro">
               <SectionLabel>PREMIERS APERÇUS</SectionLabel>
               <h2 id="portfolio-title">
-                Deux contextes.
+                Des contextes variés.
                 <br />
                 La même exigence.
               </h2>
               <p>
-                Des espaces de travail aux locaux professionnels, explorez les
+                Des bureaux aux grandes salles de sport et de spectacle, explorez les
                 besoins et les contraintes qui accompagnent ces projets.
               </p>
             </div>
@@ -308,7 +309,7 @@ export default async function Page({
             </div>
           </>
         )}
-        {slug.startsWith("projet-") && (
+        {project && (
           <>
             <div className="notice">
               Contenu de démonstration. Mission, localisation, contraintes,
@@ -320,12 +321,16 @@ export default async function Page({
                 <h2>
                   {slug === "projet-bureaux"
                     ? "Repenser les usages des bureaux."
-                    : "Adapter les réseaux à l’activité."}
+                    : slug === "projet-locaux-professionnels"
+                      ? "Adapter les réseaux à l’activité."
+                      : "Imaginer les usages d’un lieu événementiel."}
                 </h2>
                 <p>
                   {slug === "projet-bureaux"
                     ? "Réaménagement des postes de travail, éclairage, alimentation des équipements : un projet tertiaire demande de rapprocher les besoins des occupants et les possibilités du bâtiment."
-                    : "Les besoins électriques d’un local professionnel dépendent de son activité, de ses équipements et de ses contraintes d’exploitation. Le premier échange sert à en préciser le périmètre."}
+                    : slug === "projet-locaux-professionnels"
+                      ? "Les besoins électriques d’un local professionnel dépendent de son activité, de ses équipements et de ses contraintes d’exploitation. Le premier échange sert à en préciser le périmètre."
+                      : "Éclairage des circulations, mise en lumière des espaces d’accueil et alimentation des équipements : cette étude fictive illustre des sujets à explorer pour un lieu accueillant du public. Le visuel est généré et ne documente aucune intervention de SEG dans cette arena."}
                 </p>
                 <TextLink href="/contact">
                   Parlons d’un projet similaire
@@ -333,13 +338,8 @@ export default async function Page({
               </div>
               <div className="project-photo">
                 <Image
-                  src={
-                    "/images/" +
-                    (slug === "projet-bureaux"
-                      ? "bureaux.webp"
-                      : "espaces.webp")
-                  }
-                  alt="Architecture — illustration générée, sans référence à un chantier SEG"
+                  src={"/images/" + project.image}
+                  alt={project.title + " — illustration générée, sans référence à un chantier SEG"}
                   fill
                   sizes="(max-width:800px) 100vw, 50vw"
                 />

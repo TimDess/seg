@@ -114,7 +114,7 @@ export default function Home() {
           </h2>
           <TextLink href="/realisations">Voir les réalisations</TextLink>
         </div>
-        <ProjectGrid staggered />
+        <ProjectGrid staggered limit={2} />
         <p className="editorial-note">
           Visuels d’illustration : des contextes d’intervention, sans référence
           à un chantier SEG.
