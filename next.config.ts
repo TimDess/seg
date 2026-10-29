@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
+
 const config: NextConfig = {
+  output: "export",
   poweredByHeader: false,
   allowedDevOrigins: ["127.0.0.1"],
   async headers() {
@@ -15,4 +17,5 @@ const config: NextConfig = {
     ];
   },
 };
+
 export default config;
