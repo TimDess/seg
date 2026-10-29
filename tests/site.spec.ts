@@ -38,9 +38,16 @@ test("all pages have distinct titles, one heading and valid local links", async 
       expect(routes.includes(link), link).toBe(true);
   }
   expect((await request.get("/sitemap.xml")).status()).toBe(200);
-  expect(await (await request.get("/robots.txt")).text()).toContain(
-    "Disallow: /",
+  const robotsText = await (await request.get("/robots.txt")).text();
+  const home = await request.get("/");
+  const isBlocked = /name="robots" content="[^"]*noindex/.test(
+    await home.text(),
   );
+  if (isBlocked) expect(robotsText).toMatch(/^Disallow: \/$/m);
+  else {
+    expect(robotsText).toMatch(/^Allow: \/$/m);
+    expect(robotsText).not.toMatch(/^Disallow: \/$/m);
+  }
   expect((await request.get("/page-inexistante")).status()).toBe(404);
 });
 test("desktop images load and layout fits viewport", async ({ page }) => {

@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
+import { isSiteIndexable } from "@/lib/indexing";
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
-      ...(process.env.SITE_INDEXABLE === "true"
+      ...(isSiteIndexable()
         ? { allow: "/", disallow: "/api/" }
         : { disallow: "/" }),
     },

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { isSiteIndexable } from "@/lib/indexing";
 import Link from "next/link";
 import Header from "@/components/header";
 import Logo from "@/components/logo";
@@ -16,10 +17,9 @@ export const metadata: Metadata = {
   },
   description:
     "SEG accompagne les professionnels et les particuliers dans leurs projets de rénovation et d’installation électrique depuis 2015. Ennery, Île-de-France.",
-  robots:
-    process.env.SITE_INDEXABLE === "true"
-      ? { index: true, follow: true }
-      : { index: false, follow: false },
+  robots: isSiteIndexable()
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
