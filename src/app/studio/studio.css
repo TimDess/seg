@@ -1,0 +1,28 @@
+/* Give the embedded administration its own full-height workspace. */
+body:has(.seg-studio) > .site-header,
+body:has(.seg-studio) > footer,
+body:has(.seg-studio) > .skip-link {
+  display: none;
+}
+
+html:has(.seg-studio) {
+  scroll-padding-top: 0;
+}
+
+.seg-studio {
+  min-height: 100dvh;
+  background: #fff;
+  color: #181b1d;
+  color-scheme: light;
+}
+
+.studio-configuration {
+  max-width: 760px;
+  padding: 64px 24px;
+  margin: auto;
+}
+
+.studio-configuration h1 {
+  font-size: 32px;
+  margin-bottom: 24px;
+}

@@ -66,3 +66,9 @@ La signature « L’exigence, jusque dans les détails. » reste dans le pied de
 Un interrupteur dans l’en-tête, avec soleil à gauche, lune à droite et curseur coulissant, permet de basculer entre les versions claire et sombre sur toutes les pages. Sans choix enregistré, le site suit `prefers-color-scheme`, y compris si cette préférence change pendant la visite. Le choix explicite est conservé dans `localStorage` (`seg-theme`) et synchronisé entre onglets. Si le stockage est bloqué, le bouton reste fonctionnel pendant la visite.
 
 Le script d’initialisation dans le head applique la préférence avant le premier affichage pour éviter un éclair clair lors d’un chargement en sombre. Sans JavaScript, la version claire reste accessible. Les palettes sont dans `globals.css` et `dark-theme.css` ; les tracés SVG partagés du logo et de la carte utilisent les couleurs du thème.
+
+### Administration Sanity intégrée
+
+Le Studio est disponible à `/studio` (et ses sous-routes), via `NextStudio`, avec le schéma `project` existant. Il utilise les mêmes variables publiques que les réalisations et ne nécessite aucun jeton d’écriture dans le code. Les administrateurs se connectent à leur compte Sanity ; leurs droits sont ceux du projet Sanity.
+
+Pour `https://seg-yfs.pages.dev/studio` : renseigner `NEXT_PUBLIC_SANITY_PROJECT_ID` et `NEXT_PUBLIC_SANITY_DATASET` dans les variables de build Cloudflare, redéployer, puis ajouter l’origine exacte `https://seg-yfs.pages.dev` aux origines CORS du projet dans Sanity Manage → API → CORS origins, avec les credentials autorisés. Ajouter séparément toute autre origine utilisée (par exemple `http://localhost:3000` pour le développement). Ne pas utiliser une origine générique `*` avec les credentials. Le Studio reste `noindex, nofollow` et n’apparaît pas dans le sitemap. Sans identifiant de projet, une indication de configuration s’affiche.

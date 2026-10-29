@@ -17,7 +17,8 @@
     "next": "^16.0.0",
     "next-sanity": "^11.6.13",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "sanity": "^5.31.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",
