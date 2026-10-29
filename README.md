@@ -39,7 +39,7 @@ Copier `.env.example` vers `.env.local` et renseigner les paramètres côté ser
 - Valider le service de réception du formulaire.
 - Auditer les anciennes URL et renseigner les redirections dans `next.config.ts` après inventaire : l’ancien site n’était pas accessible depuis cet environnement (403 réseau). Aucune redirection ne peut être inventée.
 - Configurer le domaine canonique si différent de `https://s-e-g.fr` (layout, sitemap, robots et métadonnées).
-- L’indexation est autorisée par défaut en production (`index, follow` et `Allow: /`). Le développement et les déploiements de prévisualisation Vercel/Netlify restent bloqués. `SITE_INDEXABLE=false` permet de bloquer volontairement la production ; si cette ancienne valeur est configurée chez l’hébergeur, la supprimer ou la passer à `true`, puis redéployer. La balise et `robots.txt` partagent la même règle dans `src/lib/indexing.ts`.
+- L’indexation est de nouveau bloquée avant livraison (`noindex, nofollow` et `Disallow: /`). Le verrou `publicationApproved = false` dans `src/lib/indexing.ts` s’applique aussi en production et prévaut sur un ancien `SITE_INDEXABLE=true` utilisé pour le test PageSpeed. Lors de la livraison, passer `publicationApproved` à `true` et configurer l’indexation, puis reconstruire et redéployer. La balise et `robots.txt` partagent la même règle.
 
 Aucun outil publicitaire, analytics ou cookie non essentiel. Les polices sont hébergées localement. Les images sont optimisées par Next.js et restent remplaçables par fichier. Sitemap et données structurées Electrician inclus.
 

@@ -1,15 +1,22 @@
 import { test, expect } from "@playwright/test";
 import { isSiteIndexable } from "../src/lib/indexing";
 
-test("production indexing and preview exclusions use one policy", () => {
-  expect(isSiteIndexable({ NODE_ENV: "production" })).toBe(true);
+test("pre-launch lock blocks indexing even with the previous test flag", () => {
+  expect(isSiteIndexable({ NODE_ENV: "production" })).toBe(false);
   expect(isSiteIndexable({ NODE_ENV: "development" })).toBe(false);
+  expect(
+    isSiteIndexable({
+      NODE_ENV: "production",
+      VERCEL_ENV: "production",
+      SITE_INDEXABLE: "true",
+    }),
+  ).toBe(false);
   expect(
     isSiteIndexable({ NODE_ENV: "production", SITE_INDEXABLE: "false" }),
   ).toBe(false);
   expect(
     isSiteIndexable({ NODE_ENV: "production", VERCEL_ENV: "production" }),
-  ).toBe(true);
+  ).toBe(false);
   expect(
     isSiteIndexable({
       NODE_ENV: "production",
@@ -22,7 +29,7 @@ test("production indexing and preview exclusions use one policy", () => {
   ).toBe(false);
   expect(
     isSiteIndexable({ NODE_ENV: "production", CONTEXT: "production" }),
-  ).toBe(true);
+  ).toBe(false);
   expect(
     isSiteIndexable({
       NODE_ENV: "production",
