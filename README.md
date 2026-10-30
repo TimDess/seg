@@ -24,11 +24,12 @@ Les tests navigateur utilisent Chromium système (`/usr/bin/chromium`). En produ
 
 Copier `.env.example` vers `.env.local` et renseigner les paramètres côté serveur. Ne jamais versionner les secrets.
 
-- `CONTACT_WEBHOOK_URL` : endpoint HTTPS de réception à configurer avec le destinataire réel. Reçoit un POST multipart avec `profile`, `company`, `name`, `email`, `phone`, `location`, `project`, `building`, `schedule`, `description`, `consent` et `document` facultatif.
-- `CONTACT_WEBHOOK_TOKEN` : authentification Bearer facultative, conservée côté serveur.
-- Le récepteur doit accepter l’envoi et retourner un statut 2xx uniquement après prise en charge. Il doit assurer la livraison, le stockage sécurisé éventuel et les durées de conservation. Aucun fournisseur n’est présumé ni configuré.
-- Sans endpoint, réponse explicite 503 : aucune fausse confirmation. Erreur distante : 502. Validation des champs, consentement et pièce jointe PDF/JPEG/PNG/WebP ≤ 5 Mo. Limitation locale de cinq soumissions par dix minutes ; pour plusieurs instances, prévoir un stockage de limitation partagé et une protection antispam au niveau de la plateforme.
-- Tester la réception réelle et les pièces jointes avant publication. Les tests automatisés vérifient les erreurs et une réception simulée ; ils ne démontrent pas une livraison à SEG.
+- Installer les dépendances avec `npm ci`. Le formulaire envoie du JSON à `/api/contact` (runtime Edge), qui utilise le SDK `resend`.
+- `RESEND_API_KEY` : clé Resend secrète, à définir côté serveur sur l’hébergement. Ne jamais utiliser un préfixe `NEXT_PUBLIC_`.
+- `CONTACT_TO_EMAIL` : destinataire facultatif, par défaut `timdessaigne@gmail.com`. L’expéditeur est `onboarding@resend.dev` ; en mode test, le destinataire doit être l’adresse associée au compte Resend. La réponse à l’e-mail est adressée au demandeur (`replyTo`).
+- Tous les champs du devis sont inclus en texte brut. La pièce jointe facultative est encodée en base64 dans le JSON puis transmise à Resend (PDF/JPEG/PNG/WebP, 5 Mo maximum).
+- Sans clé, réponse explicite 503 : aucune fausse confirmation. Erreur Resend : 502. Validation des champs et du consentement, contrôle d’origine et limitation locale de cinq soumissions par dix minutes conservés ; la limitation est propre à chaque instance Edge.
+- Le succès est affiché seulement si Resend confirme la prise en charge avec un identifiant d’e-mail. Les tests utilisent une réponse Resend simulée et n’envoient aucun e-mail réel. Vérifier la réception réelle avec la clé configurée avant publication.
 
 ## Avant publication
 

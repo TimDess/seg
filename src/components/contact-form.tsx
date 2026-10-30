@@ -30,9 +30,22 @@ export default function ContactForm({ configured }: { configured: boolean }) {
     setStatus("loading");
     setMessage("");
     try {
+      const formData: Record<string, unknown> = Object.fromEntries(
+        Array.from(data.entries()).filter(([key]) => key !== "document"),
+      );
+      if (file instanceof File && file.size) {
+        const content = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result).split(",")[1]);
+          reader.onerror = () => reject(new Error("Le document n’a pas pu être lu."));
+          reader.readAsDataURL(file);
+        });
+        formData.document = { name: file.name, type: file.type, content };
+      }
       const response = await fetch("/api/contact", {
         method: "POST",
-        body: data,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
       const result = await response.json();
       if (!response.ok)
@@ -41,7 +54,7 @@ export default function ContactForm({ configured }: { configured: boolean }) {
         );
       setStatus("success");
       setMessage(
-        "Votre demande a été transmise au service de réception. SEG pourra revenir vers vous avec les coordonnées indiquées.",
+        "Message envoyé avec succès ! Votre demande de devis a été transmise.",
       );
       form.reset();
       setProject("");

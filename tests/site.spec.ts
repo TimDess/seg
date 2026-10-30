@@ -166,14 +166,14 @@ test("contact validates and never reports a fictitious delivery", async ({
   );
   expect(
     (
-      await request.post("/api/contact", { multipart: { name: "Invalid" } })
+      await request.post("/api/contact", { data: { name: "Invalid" } })
     ).status(),
   ).toBe(400);
   expect(
     (
       await request.post("/api/contact", {
         headers: { origin: "https://untrusted.example" },
-        multipart: { name: "Invalid" },
+        data: { name: "Invalid" },
       })
     ).status(),
   ).toBe(403);
@@ -188,19 +188,27 @@ test("contact handles an accepted delivery", async ({ page }) => {
   await page
     .getByLabel("Votre projet en quelques mots")
     .fill("Un projet résidentiel à étudier avec votre équipe.");
+  await page.getByLabel("Document technique").setInputFiles({
+    name: "plan.pdf", mimeType: "application/pdf", buffer: Buffer.from("%PDF-1.4"),
+  });
   await page.getByRole("checkbox").check();
-  await page.route("**/api/contact", (r) =>
-    r.fulfill({
+  await page.route("**/api/contact", (r) => {
+    expect(r.request().headers()["content-type"]).toBe("application/json");
+    expect(r.request().postDataJSON().profile).toBe("particulier");
+    expect(r.request().postDataJSON().document).toEqual({
+      name: "plan.pdf", type: "application/pdf", content: Buffer.from("%PDF-1.4").toString("base64"),
+    });
+    return r.fulfill({
       status: 200,
       contentType: "application/json",
       body: '{"ok":true}',
-    }),
-  );
+    });
+  });
   await page
     .getByRole("button", { name: "Envoyer ma demande de devis" })
     .click();
   await expect(page.getByRole("status")).toContainText(
-    "transmise au service de réception",
+    "Message envoyé avec succès",
   );
 });
 test("API rejects invalid attachments before delivery", async ({ request }) => {
@@ -215,18 +223,18 @@ test("API rejects invalid attachments before delivery", async ({ request }) => {
     consent: "yes",
   };
   const invalid = await request.post("/api/contact", {
-    multipart: {
+    data: {
       ...data,
       document: {
         name: "script.html",
-        mimeType: "text/html",
-        buffer: Buffer.from("<script>test</script>"),
+        type: "text/html",
+        content: Buffer.from("<script>test</script>").toString("base64"),
       },
     },
   });
   expect(invalid.status()).toBe(400);
   expect((await invalid.json()).error).toContain("Document non accepté");
-  const valid = await request.post("/api/contact", { multipart: data });
+  const valid = await request.post("/api/contact", { data });
   expect(valid.status()).toBe(503);
   expect((await valid.json()).error).toContain("n’a pas été transmise");
 });

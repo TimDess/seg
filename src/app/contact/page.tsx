@@ -52,7 +52,7 @@ export default function Contact() {
             </p>
           </div>
         </aside>
-        <ContactForm configured={Boolean(process.env.CONTACT_WEBHOOK_URL)} />
+        <ContactForm configured={Boolean(process.env.RESEND_API_KEY)} />
       </section>
     </>
   );
